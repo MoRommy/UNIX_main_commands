@@ -1,0 +1,122 @@
+# Tema 1 IOCLA - Radulescu Stefan
+
+#### Implementare fisiere si directoare - filesAndDirectories.c
+
+##### Fisiere
+
+	creteFileList - Functia care aloca memorie pentru un fisier, ii seteaza
+ directorul parinte, iar apoi returneaza un pointer la acesta. 
+ 
+ 	freeFile - Functie care prineste ca parametru un pointer la un fisier
+ si ii elibereaza din memorie numele, iar apoi structura aferenta.
+ 
+	freeFileList - Functie recursiva care primeste un pointer la o lista de 
+ fisiere si elibereaza din aceasta fisierul urmator, dupa care pe cel curent.
+ 
+	removeFileFromList - Functie care scoate dintr-o lista un fisier cu numele
+ dat ca parametru. Pentru aceasta am considerat doua cazuri: Primul: cel in
+ care primul element din lista este cel cautat. In acesta caz am scris in
+ pointer adresa urmatorului element din lista si am sters fisierul curent.
+ In al doilea caz, cel in care fisierul cautat nu era primul din lista,
+ l-am cautat, iar cand l-am gasit, l-am sters in mod similar.
+ 
+	printFileList - Functie care afiseaza in stdout numele tuturor fisierelor
+ dintr-un parinte.
+
+##### Directoare
+
+	creatDirList - Functia care aloca memorie pentru un director, ii seteaza
+ directorul parinte, iar apoi returneaza un pointer la acesta. 
+ 
+	freeDirList - Functie recursiva care primeste un pointer la o lista de 
+ directoare si elibereaza din primul lista de fisiere, lista de directoare
+ copii, directoarele urmatoare din lista, iar apoi directorul curent. Functia
+ poate pare complicata la prima vedere, dar pentru o intelegere mai usoara
+ recomand urmarirea algoritmului pe un exemplu grafic.
+ 
+	freeDir - Functie care prineste ca parametru un pointer la un director
+ si ii elibereaza din memorie numele, fisierele pe care le contine,
+ directoarele copii (recursiv prin freeDirList), iar apoi structura aferenta.
+ Am folosit pe parcursul temei aceasta functie, iar de aceea de fiecare daca
+ cand voi spune ca sterg un director, ma voi referi la aceasta functie.
+ 
+	removeDirFromList - Functie care scoate dintr-o lista un fisier cu numele
+ dat ca parametru. Pentru aceasta am considerat doua cazuri: Primul: cel in
+ care primul element din lista este cel cautat. In acesta caz am scris in
+ pointer adresa urmatorului element din lista si am sters directorul curent.
+ In al doilea caz, cel in care directorul cautat nu era primul din lista,
+ l-am cautat, iar cand l-am gasit, l-am sters in mod similar.
+ 
+	printDirList - Functie care afiseaza in stdout numele tuturor 
+ directoarelor copii dintr-un parinte.
+	
+	processInputLine - imparte linia citita de la tastatura in comanda si
+ parametrii, iar apoi executa input-ul.
+
+
+#### Implementare citire date processInputLine.c
+
+	hasInput - daca linia citita difera de comanda stop, atunci returneaza 1.
+ Altfel, 0.
+	
+	getNumberOfParameters - returneaza numarul de parametrii din linia citita.
+	
+	getCommand - returneaza primul cuvant din linia citita.
+	
+	getParameters - returneaza parametrii liniei citite
+	
+	run - executa comanda data, trimitand de fiecare data comenzii parametrii
+ sai si locatia in arborele de fisiere.
+
+
+#### Main
+
+	In main am creat directorul principal "home" ,utilizand functia
+ "createDirList". Variabila path pointeaza catre acest director la inceput,
+ urmand sa-si schime valoarea pe parcurs (la apelul functiei "cd"). 
+ Asadar, atat timp cat citeam date de la tastatura(hasInput), le procesam.
+ 
+ 
+#### Comenzile OS-ului - commands.c
+
+	touch - Am verificat daca fisierul exista deja in directorul parinte, iar
+ daca nu, am creat fisierul si l-am pus la finalul listei parintelui.
+
+	mkdir - Am verificat daca directorul exista deja in directorul parinte, iar
+ daca nu, am creat directorul si l-am pus la finalul listei parintelui.
+ 
+	ls - Am afisat lista de directoare cu si lista de fisiere cu printDir/FileList
+	
+	rm - Am verificat daca fisierul exista deja in directorul parinte, apoi am
+ apelat functia removeFileFromList pe lista de fisiere a parintelui.
+ 
+	rmdir - Am verificat daca directorul exista deja in directorul parinte, apoi 
+ am apelat functia removeDirFromList pe lista de directoare a parintelui.
+ 
+	cd - Am schimbat variabila path, pe baza adresei rezultate de getDir.
+	
+	pwd - Functie recursiva care se autoapeleaza pe directorul parinte, 
+ iar apoi printeaza numele directorului curent.
+	
+	stop - Am inlocuit implementarea fuctiei stop prin while(hasInput) din main
+	
+	tree - Am afisat toate directoarele, iar pentru fiecare in parte am apelat
+ tree(thisChild, level + 1), pentru a apela recursiv functia in toate directoarele
+ din sistem. Apoi am afisat si toate fisierele din directorul respectiv.\
+ 
+	mvFile - Functie care primeste un director parinte, adresa fisierului
+ si noul nume al acestuia. Prima data updatez numele fisierului, il sterg de la
+ pozitia initiala, iar apoi il adaug la finalul listei de fisiere a parintelui.
+ 
+	mvDir - Functie care primeste un director parinte, adresa directorului
+ si noul nume al acestuia. Prima data updatez numele directorului, il sterg de la
+ pozitia initiala, iar apoi il adaug la finalul listei de directoare a parintelui.
+	
+	mv - Am verificat daca fisierul/directorul exista deja in directorul 
+ parinte, iar daca nu, Am salvat adresa corespunzatoare intr-o variabila, 
+ folosindu-ma de getDir si getFile, si am apelat pe ea mvDir/mvFile.
+	
+	
+	
+	
+	
